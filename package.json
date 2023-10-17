@@ -22,7 +22,6 @@
     "test": "jest",
     "test:coverage": "jest --coverage",
     "build": "rollup -c",
-    "prepack": "cross-env NODE_ENV=production yarn build",
     "check-typing": "tsc",
     "build-typedoc": "typedoc",
     "ci": "run-s check-format check-typing lint test:coverage",

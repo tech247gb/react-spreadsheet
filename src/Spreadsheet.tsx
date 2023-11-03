@@ -36,9 +36,9 @@ import DefaultDataEditor from "./DataEditor";
 import ActiveCell from "./ActiveCell";
 import Selected from "./Selected";
 import Copied from "./Copied";
-const rowDelete = require("../../assets/delete_row.svg").default
-const addbelow = require("../../assets/add_row_below.svg").default
-const addAbove = require("../../assets/add_row_above.svg").default
+// const rowDelete = require("../../assets/delete_row.svg").default
+// const addbelow = require("../../assets/add_row_below.svg").default
+// const addAbove = require("../../assets/add_row_above.svg").default
 // import addAbove from '../assets/add_row_above.svg';
 
 import "./Spreadsheet.css";
@@ -401,7 +401,6 @@ const Spreadsheet = <CellType extends Types.CellBase>(
   const actionButtonClicked = React.useCallback(
     (rowNumber: number, actionPressed: string) => {
       const data = { rowNumber, actionPressed };
-      console.log("ActionButtonInsideNodeModules", data);
       onActionButtonClicked(data);
       // dispatch(Actions.onActionPressed(data))
     },
@@ -492,7 +491,7 @@ const Spreadsheet = <CellType extends Types.CellBase>(
               )
             )}
           {isActionButtonEnable && !hideColumnIndicators && (
-            <th className="Spreadsheet__header">Action</th>
+            <th className="Spreadsheet__header"></th>
           )}
         </HeaderRow>
         {range(size.rows).map((rowNumber) => (
@@ -518,7 +517,7 @@ const Spreadsheet = <CellType extends Types.CellBase>(
             ))}
             {isActionButtonEnable && (
               <>
-                <td className="Spreadsheet__cell">
+                <td className="Spreadsheet__header">
                   <div className="svgImage">
                     <a title="Insert row above"
                       onClick={() => actionButtonClicked(rowNumber, "addAbove")}

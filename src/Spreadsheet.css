@@ -41,7 +41,7 @@
 
 .Spreadsheet__cell,
 .Spreadsheet__active-cell {
-  cursor: cell;
+  /* cursor: cell; */
 }
 
 .Spreadsheet__cell {
@@ -214,7 +214,7 @@
 [class*=" icon-"] {
   /* use !important to prevent issues with browser extensions that change fonts */
   font-family: "icomoon" !important;
-  speak: never;
+  /* speak: never; */
   font-style: normal;
   font-weight: normal;
   font-variant: normal;
@@ -228,15 +228,15 @@
 
 .icon-trash-o:before {
   content: "\f014";
-  font-size: 14px;
+  font-size: 17px;
 }
 .icon-table-add-row-above-svgrepo-com:before {
   content: "\e900";
-  font-size: 14px;
+  font-size: 17px;
 }
 .icon-table-add-row-below-svgrepo-com:before {
   content: "\e901";
-  font-size: 14px;
+  font-size: 17px;
 }
 .Spreadsheet__cell__icon {
   color: #444 !important;

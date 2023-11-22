@@ -167,6 +167,15 @@ type Dimensions = {
     /** The distance of the element from it's container left border in pixels */
     left: number;
 };
+type ColumnLabels = {
+    /** The columns's Label  */
+    columnLabel: String;
+    /** Allow sum for column */
+    allowSum: boolean | undefined;
+    /** Allow average for column */
+    allowAverage: boolean | undefined;
+};
+type ColumnLabelsArray<T> = Array<ColumnLabels>;
 type CellChange<Cell extends CellBase = CellBase> = {
     prevCell: Cell | null;
     nextCell: Cell | null;
@@ -323,11 +332,13 @@ type Props<CellType extends CellBase> = {
      * @defaultValue `false`.
      */
     isActionButtonEnable?: boolean;
+    columnStructure?: ColumnLabelsArray<number>;
     /**
      * If set to true, hides the column indicators of the spreadsheet.
      * @defaultValue `false`.
      */
     hideColumnIndicators?: boolean;
+    allowExtraRow?: boolean;
     /** The selected cells in the worksheet. */
     selected?: Selection;
     /** Component rendered above each column. */

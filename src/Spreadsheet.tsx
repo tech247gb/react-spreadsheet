@@ -84,11 +84,14 @@ export type Props<CellType extends Types.CellBase> = {
    * @defaultValue `false`.
    */
   isActionButtonEnable?: boolean;
+
+  columnStructure?: Types.ColumnLabelsArray<number>;
   /**
    * If set to true, hides the column indicators of the spreadsheet.
    * @defaultValue `false`.
    */
   hideColumnIndicators?: boolean;
+  allowExtraRow?: boolean
   /** The selected cells in the worksheet. */
   selected?: Selection;
   // Custom Components
@@ -145,21 +148,24 @@ const Spreadsheet = <CellType extends Types.CellBase>(
     hideColumnIndicators,
     hideRowIndicators,
     isActionButtonEnable,
+    allowExtraRow,
+    columnStructure,
     onKeyDown,
     Table = DefaultTable,
     Row = DefaultRow,
     HeaderRow = DefaultHeaderRow,
     DataEditor = DefaultDataEditor,
     DataViewer = DefaultDataViewer,
-    onChange = () => {},
-    onModeChange = () => {},
-    onSelect = () => {},
-    onActivate = () => {},
-    onBlur = () => {},
-    onCellCommit = () => {},
-    onActionButtonClicked = () => {},
+    onChange = () => { },
+    onModeChange = () => { },
+    onSelect = () => { },
+    onActivate = () => { },
+    onBlur = () => { },
+    onCellCommit = () => { },
+    onActionButtonClicked = () => { },
   } = props;
   type State = Types.StoreState<CellType>;
+
 
   const initialState = React.useMemo(() => {
     const createParser = (props.createFormulaParser ||
@@ -457,6 +463,16 @@ const Spreadsheet = <CellType extends Types.CellBase>(
     [props.ColumnIndicator]
   );
 
+  const columnSum = React.useMemo(() => {
+    let sumColumns
+    if (columnStructure) {
+      sumColumns = columnStructure.some((item) => item.allowSum || item.allowAverage)
+    }
+    return sumColumns
+
+  }, [columnStructure])
+
+
   React.useEffect(() => {
     document.addEventListener("cut", handleCut);
     document.addEventListener("copy", handleCopy);
@@ -518,30 +534,33 @@ const Spreadsheet = <CellType extends Types.CellBase>(
             {isActionButtonEnable && (
               <>
                 <td className="Spreadsheet__header">
-                  <div className="svgImage">
-                    <a title="Insert row above"
-                      onClick={() => actionButtonClicked(rowNumber, "addAbove")}
-                    >
-                      <span className="Spreadsheet__cell__icon icon-table-add-row-above-svgrepo-com"></span>
-                      {/* <img src={addAbove} height={25}/> */}
-                    </a>
-                    <a title="Insert row below"
-                      onClick={() => actionButtonClicked(rowNumber, "addBelow")}
-                    >
-                      <span className="Spreadsheet__cell__icon icon-table-add-row-below-svgrepo-com"></span>
-                      {/* <img src={addbelow} height={25}/> */}
-                    </a>
-                    <a title="Delete row"
-                      className="delete"
-                      onClick={() => actionButtonClicked(rowNumber, "delete")}
-                    >
-                      <span className="Spreadsheet__cell__icon icon-trash-o"></span>
-                      {/* <img src={rowDelete} height={25}/> */}
-                    </a>
-                  </div>
+                  {
+                    columnSum && rowNumber === size.rows - 1 ? (
+                      <></>
+                    ) : <>
+                      <div className="svgImage">
+                        <a title="Insert row above"
+                          onClick={() => actionButtonClicked(rowNumber, "addAbove")}
+                        >
+                          <span className="Spreadsheet__cell__icon icon-table-add-row-above-svgrepo-com"></span>
+                        </a>
+                        <a title="Insert row below"
+                          onClick={() => actionButtonClicked(rowNumber, "addBelow")}
+                        >
+                          <span className="Spreadsheet__cell__icon icon-table-add-row-below-svgrepo-com"></span>
+                        </a>
+                        <a title="Delete row"
+                          className="delete"
+                          onClick={() => actionButtonClicked(rowNumber, "delete")}
+                        >
+                          <span className="Spreadsheet__cell__icon icon-trash-o"></span>
+                        </a>
+                      </div></>
+                  }
                 </td>
               </>
-            )}
+            )
+            }
           </Row>
         ))}
       </Table>

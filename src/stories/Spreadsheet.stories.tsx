@@ -81,7 +81,59 @@ export const DarkMode: StoryObj = {
 };
 
 export const Controlled: StoryFn<Props<StringCell>> = (props) => {
+
+  let dataNew = [
+    [
+      {
+        "value": "",
+      },
+      {
+        "value": "",
+      },
+      {
+        "value": "",
+      },
+      {
+        "value": "",
+      }
+    ],
+    [
+      {
+        "value": "",
+      },
+      {
+        "value": "",
+      },
+      {
+        "value": "",
+      },
+      {
+        "value": "",
+        "colName": "Average"
+      }
+    ],
+    [
+      {
+        "value": "",
+      },
+      {
+        "value": "",
+        className: 'Spreadsheet__header'
+      },
+      {
+        "value": "=sum(c1+c2)",
+        className: 'Spreadsheet__table__sum'
+      },
+      {
+        "value": "9",
+        "colName": "Average",
+        readOnly: true,
+        className: 'Spreadsheet__table__sum'
+      }
+    ]
+  ]
   const [data, setData] = React.useState(EMPTY_DATA);
+  const [newdata, setNewData] = React.useState(dataNew)
 
   const addColumn = React.useCallback(
     () =>
@@ -150,6 +202,146 @@ export const Controlled: StoryFn<Props<StringCell>> = (props) => {
   const isActive = React.useCallback((data) => {
     // console.log("this action",data)
   }, []);
+  const colsStructure = [
+    {
+      "colName": "Reason",
+      "colType": "master",
+      "fieldName": "reason",
+      "formid": "64f6c44d0c84fbe6203e7354",
+      "fieldId": "table",
+      "_id": "Reason88",
+      "editable": true
+    },
+    {
+      "colName": "Number of days",
+      "colType": "master",
+      "fieldName": "period",
+      "formid": "64f6c44d0c84fbe6203e7354",
+      "fieldId": "table",
+      "_id": "Number of days88",
+      "allowSum": false,
+      "allowAverage": false,
+      "allowCount": false,
+      "editable": false
+    },
+    {
+      "colName": "Sum",
+      "colType": "text",
+      "fieldId": "table",
+      "_id": "Sum88",
+      "allowSum": false,
+      "allowAverage": false,
+      "allowCount": false,
+      "editable": true
+    },
+    {
+      "colName": "Average",
+      "colType": "text",
+      "fieldId": "table",
+      "_id": "Average88",
+      "allowSum": false,
+      "allowAverage": false,
+      "allowCount": false,
+      "editable": false
+    }
+  ]
+
+  const getTableColumnLabels = () => {
+    let _cols = [];
+    const newColsArray = colsStructure.map((item) => {
+      return item.colName
+    })
+    console.log("getTableColumnLabels", newColsArray)
+    return newColsArray;
+  }
+  const Structure = () => {
+    const newColsArray = colsStructure.map((item) => {
+      return { columnLabel: item?.colName, allowSum: item.allowSum, allowAverage: item.allowAverage }
+    })
+    return newColsArray;
+  }
+  let a = [
+    {
+      "columnLabel": "Reason",
+      "allowSum": false,
+      "allowAverage": false
+    },
+    {
+      "columnLabel": "Number of days",
+      "allowSum": false,
+      "allowAverage": false
+    },
+    {
+      "columnLabel": "Sum",
+      "allowSum": false,
+      "allowAverage": false
+    },
+    {
+      "columnLabel": "Average",
+      "allowSum": false,
+      "allowAverage": true
+    }
+  ]
+  const dataa = [
+    [
+      {
+        "value": "",
+        "colName": "Reason"
+      },
+      {
+        "value": "",
+        "colName": "Number of days",
+        "readOnly": true
+      },
+      {
+        "value": "",
+        "colName": "Sum"
+      },
+      {
+        "value": "",
+        "colName": "Average"
+      }
+    ],
+    [
+      {
+        "value": "",
+        "colName": "Reason"
+      },
+      {
+        "value": "",
+        "colName": "Number of days",
+        "readOnly": true
+      },
+      {
+        "value": "",
+        "colName": "Sum"
+      },
+      {
+        "value": "",
+        "colName": "Average"
+      }
+    ],
+    [
+      {
+        "value": "New leave for no reason",
+        "colName": "Reason"
+      },
+      {
+        "readOnly": true,
+        "value": "2",
+        "colName": "Number of days"
+      },
+      {
+        "value": "",
+        "colName": "Sum"
+      },
+      {
+        "value": "",
+        "colName": "Average"
+      }
+    ]
+  ]
+
 
   return (
     <>
@@ -161,12 +353,14 @@ export const Controlled: StoryFn<Props<StringCell>> = (props) => {
       </div>
       <Spreadsheet
         {...props}
-        data={data}
+        data={dataNew}
         onChange={setData}
         isActionButtonEnable={true}
         onActionButtonClicked={actionPressed}
         onActivate={isActive}
         hideColumnIndicators={false}
+        columnLabels={getTableColumnLabels()}
+        columnStructure={a}
       />
     </>
   );

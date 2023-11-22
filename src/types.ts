@@ -45,6 +45,17 @@ export type Dimensions = {
   left: number;
 };
 
+type ColumnLabels = {
+  /** The columns's Label  */
+  columnLabel: String;
+  /** Allow sum for column */
+  allowSum: boolean | undefined;
+  /** Allow average for column */
+  allowAverage: boolean | undefined
+
+}
+export type ColumnLabelsArray<T> = Array<ColumnLabels>;
+
 export type StoreState<Cell extends CellBase = CellBase> = {
   model: Model<Cell>;
   selected: Selection;

@@ -38,11 +38,15 @@
   border-collapse: collapse;
   table-layout: fixed;
 }
-
-.Spreadsheet__cell,
-.Spreadsheet__active-cell {
-  /* cursor: cell; */
+.Spreadsheet__table__sum {
+  font-weight: 20px !important;
+  color:black !important;
+  text-align: end !important;
 }
+
+/* .Spreadsheet__cell,
+.Spreadsheet__active-cell {
+} */
 
 .Spreadsheet__cell {
   outline: none;

@@ -4,10 +4,10 @@ import { moveCursorToEnd } from "./util";
 
 /** The default Spreadsheet DataEditor component */
 const DataEditor: React.FC<Types.DataEditorProps> = ({ onChange, cell }) => {
-  const inputRef = React.useRef<HTMLInputElement>(null);
+  const inputRef = React.useRef<HTMLTextAreaElement>(null);
 
   const handleChange = React.useCallback(
-    (event: React.ChangeEvent<HTMLInputElement>) => {
+    (event: React.ChangeEvent<HTMLTextAreaElement>) => {
       onChange({ ...cell, value: event.target.value });
     },
     [onChange, cell]
@@ -23,9 +23,8 @@ const DataEditor: React.FC<Types.DataEditorProps> = ({ onChange, cell }) => {
 
   return (
     <div className="Spreadsheet__data-editor">
-      <input
+      <textarea
         ref={inputRef}
-        type="text"
         onChange={handleChange}
         value={value}
         autoFocus

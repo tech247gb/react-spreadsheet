@@ -81,7 +81,7 @@ export const Cell: React.FC<Types.CellComponentProps> = ({
       onMouseOver={handleMouseOver}
       onMouseDown={handleMouseDown}
       tabIndex={0}
-      style={{ maxWidth: "200px", wordWrap: "break-word", whiteSpace: "normal" }}
+    // style={{ maxWidth: "200px", wordWrap: "break-word", whiteSpace: "normal" }}
     >
       <DataViewer
         row={row}

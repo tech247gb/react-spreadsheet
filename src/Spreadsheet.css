@@ -177,30 +177,6 @@
   transform: scale(0.9);
 }
 
-/* .svgImage a.delete .icon-table-add-row-below-svgrepo-com :hover  {
-  color: #FFCCCB;
-}
-
-/* .svgImage a span {
-  position: relative;
-  overflow: hidden;
-}
-
-.svgImage a span:after {
-  content: "";
-  position: absolute;
-  top: 0;
-  left: 0;
-  width: 100%;
-  height: 100%;
-  background-color: rgba(0, 0, 0, 0.1);
-  transform: scale(0);
-  transition: transform 0.5s;
-}
-
-.svgImage a:active span:after {
-  transform: scale(1);
-} */
 
 @font-face {
   font-family: "icomoon";

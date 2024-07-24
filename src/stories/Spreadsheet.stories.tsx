@@ -132,8 +132,68 @@ export const Controlled: StoryFn<Props<StringCell>> = (props) => {
       }
     ]
   ]
+  const dataa: any = [
+    [
+      {
+        "value": "",
+        "colName": "Reason"
+      },
+      {
+        "value": "",
+        "colName": "Number of days",
+        "readOnly": true
+      },
+      {
+        "value": "",
+        "colName": "Sum"
+      },
+      {
+        "value": "",
+        "colName": "Average"
+      }
+    ],
+    [
+      {
+        "value": "",
+        "colName": "Reason"
+      },
+      {
+        "value": "",
+        "colName": "Number of days",
+        "readOnly": true
+      },
+      {
+        "value": "",
+        "colName": "Sum"
+      },
+      {
+        "value": "",
+        "colName": "Average"
+      }
+    ],
+    [
+      {
+        "value": "New leave for no reason",
+        "colName": "Reason"
+      },
+      {
+        "readOnly": true,
+        "value": "2",
+        "colName": "Number of days"
+      },
+      {
+        "value": "",
+        "colName": "Sum"
+      },
+      {
+        "value": "",
+        "colName": "Average"
+      }
+    ]
+  ]
+
   const [data, setData] = React.useState(EMPTY_DATA);
-  const [newdata, setNewData] = React.useState(dataNew)
+  // const [newdata, setNewData] = React.useState(dataNew)
 
   const addColumn = React.useCallback(
     () =>
@@ -282,66 +342,11 @@ export const Controlled: StoryFn<Props<StringCell>> = (props) => {
       "allowAverage": true
     }
   ]
-  const dataa = [
-    [
-      {
-        "value": "",
-        "colName": "Reason"
-      },
-      {
-        "value": "",
-        "colName": "Number of days",
-        "readOnly": true
-      },
-      {
-        "value": "",
-        "colName": "Sum"
-      },
-      {
-        "value": "",
-        "colName": "Average"
-      }
-    ],
-    [
-      {
-        "value": "",
-        "colName": "Reason"
-      },
-      {
-        "value": "",
-        "colName": "Number of days",
-        "readOnly": true
-      },
-      {
-        "value": "",
-        "colName": "Sum"
-      },
-      {
-        "value": "",
-        "colName": "Average"
-      }
-    ],
-    [
-      {
-        "value": "New leave for no reason",
-        "colName": "Reason"
-      },
-      {
-        "readOnly": true,
-        "value": "2",
-        "colName": "Number of days"
-      },
-      {
-        "value": "",
-        "colName": "Sum"
-      },
-      {
-        "value": "",
-        "colName": "Average"
-      }
-    ]
-  ]
 
+  const handleChange = (data: any) => {
+    console.log("Theeeeeeeee data ", data)
+    setData(data)
+  }
 
   return (
     <>
@@ -353,8 +358,8 @@ export const Controlled: StoryFn<Props<StringCell>> = (props) => {
       </div>
       <Spreadsheet
         {...props}
-        data={dataNew}
-        onChange={setData}
+        data={data}
+        onChange={(changed) => { handleChange(changed) }}
         isActionButtonEnable={true}
         onActionButtonClicked={actionPressed}
         onActivate={isActive}

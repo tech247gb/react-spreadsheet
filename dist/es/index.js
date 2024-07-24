@@ -1676,7 +1676,8 @@ function reducer(state, action) {
                             prevCell: currentCell || null,
                             nextCell: cell || null,
                         });
-                        newData = set(point, cell, newData);
+                        var conservedCellProps = __assign(__assign({}, currentCell), cell);
+                        newData = set(point, conservedCellProps, newData);
                     }
                 }
                 catch (e_1_1) { e_1 = { error: e_1_1 }; }

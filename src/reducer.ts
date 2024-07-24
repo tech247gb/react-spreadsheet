@@ -202,7 +202,8 @@ export default function reducer(
             prevCell: currentCell || null,
             nextCell: cell || null,
           });
-          newData = Matrix.set(point, cell, newData);
+          const conservedCellProps: any = { ...currentCell, ...cell }
+          newData = Matrix.set(point, conservedCellProps, newData);
         }
 
         return {
@@ -411,24 +412,24 @@ function commit(changes: Types.CommitChanges): Partial<Types.StoreState> {
 
 export const go =
   (rowDelta: number, columnDelta: number): KeyDownHandler =>
-  (state) => {
-    if (!state.active) {
-      return;
-    }
-    const nextActive = {
-      row: state.active.row + rowDelta,
-      column: state.active.column + columnDelta,
+    (state) => {
+      if (!state.active) {
+        return;
+      }
+      const nextActive = {
+        row: state.active.row + rowDelta,
+        column: state.active.column + columnDelta,
+      };
+      if (!Matrix.has(nextActive, state.model.data)) {
+        return { ...state, mode: "view" };
+      }
+      return {
+        ...state,
+        active: nextActive,
+        selected: new RangeSelection(new PointRange(nextActive, nextActive)),
+        mode: "view",
+      };
     };
-    if (!Matrix.has(nextActive, state.model.data)) {
-      return { ...state, mode: "view" };
-    }
-    return {
-      ...state,
-      active: nextActive,
-      selected: new RangeSelection(new PointRange(nextActive, nextActive)),
-      mode: "view",
-    };
-  };
 
 // Key Bindings
 

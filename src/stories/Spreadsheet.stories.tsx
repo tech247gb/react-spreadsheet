@@ -141,7 +141,7 @@ export const Controlled: StoryFn<Props<StringCell>> = (props) => {
       {
         "value": "",
         "colName": "Number of days",
-        "readOnly": true
+        "readOnly": false
       },
       {
         "value": "",
@@ -160,7 +160,7 @@ export const Controlled: StoryFn<Props<StringCell>> = (props) => {
       {
         "value": "",
         "colName": "Number of days",
-        "readOnly": true
+        "readOnly": false
       },
       {
         "value": "",
@@ -177,7 +177,7 @@ export const Controlled: StoryFn<Props<StringCell>> = (props) => {
         "colName": "Reason"
       },
       {
-        "readOnly": true,
+        "readOnly": false,
         "value": "2",
         "colName": "Number of days"
       },

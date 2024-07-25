@@ -189,6 +189,7 @@ export default function reducer(
       const copiedSize = Matrix.getSize(copied);
 
       const selectedRange = state.selected.toRange(state.model.data);
+      // only one column is copied for pasting
       if (selectedRange && copiedSize.rows === 1 && copiedSize.columns === 1) {
         const cell = Matrix.get({ row: 0, column: 0 }, copied);
         let newData =
@@ -264,7 +265,7 @@ export default function reducer(
 
         acc.data = Matrix.set(
           nextPoint,
-          { value: undefined, ...currentCell, ...cell },
+          { value: '', ...currentCell, ...cell },
           nextData
         );
         acc.commit = commit;

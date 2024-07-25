@@ -300,15 +300,16 @@ function slice(startPoint, endPoint, matrix) {
 /** Sets the value at row and column of matrix. If a row doesn't exist, it's created. */
 function set(point, value, matrix) {
     var nextMatrix = __spreadArray([], __read(matrix), false);
+    var newValue = value.value; // this is for replace value as undefined to empty string
     // Synchronize first row length
     var firstRow = matrix[0];
     var nextFirstRow = firstRow ? __spreadArray([], __read(firstRow), false) : [];
     if (nextFirstRow.length - 1 < point.column) {
-        nextFirstRow[point.column] = undefined;
+        nextFirstRow[point.column] = '';
         nextMatrix[0] = nextFirstRow;
     }
     var nextRow = matrix[point.row] ? __spreadArray([], __read(matrix[point.row]), false) : [];
-    nextRow[point.column] = value;
+    nextRow[point.column] = __assign(__assign({}, value), { value: newValue || '' });
     nextMatrix[point.row] = nextRow;
     return nextMatrix;
 }
@@ -335,8 +336,9 @@ function unset(point, matrix) {
     }
     var nextMatrix = __spreadArray([], __read(matrix), false);
     var nextRow = __spreadArray([], __read(matrix[point.row]), false);
+    var preservedColumnProps = __assign(__assign({}, matrix[point.row][point.column]), { value: '' });
     // Avoid deleting to preserve first row length
-    nextRow[point.column] = undefined;
+    nextRow[point.column] = preservedColumnProps;
     nextMatrix[point.row] = nextRow;
     return nextMatrix;
 }
@@ -1685,6 +1687,7 @@ function reducer(state, action) {
             var copied = split(text, function (value) { return ({ value: value }); });
             var copiedSize = getSize(copied);
             var selectedRange = state.selected.toRange(state.model.data);
+            // only one column is copied for pasting
             if (selectedRange && copiedSize.rows === 1 && copiedSize.columns === 1) {
                 var cell = get({ row: 0, column: 0 }, copied);
                 var newData = state.cut && state.copied
@@ -1747,7 +1750,7 @@ function reducer(state, action) {
                             nextCell: cell || null,
                         },
                     ], false);
-                    acc.data = set(nextPoint, __assign(__assign({ value: undefined }, currentCell), cell), nextData);
+                    acc.data = set(nextPoint, __assign(__assign({ value: '' }, currentCell), cell), nextData);
                     acc.commit = commit_2;
                 }
             }

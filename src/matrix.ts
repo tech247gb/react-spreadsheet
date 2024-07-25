@@ -54,17 +54,17 @@ export function set<T>(
   matrix: Matrix<T>
 ): Matrix<T> {
   const nextMatrix = [...matrix];
-
+  const { value: newValue }: any = value // this is for replace value as undefined to empty string
   // Synchronize first row length
   const firstRow = matrix[0];
-  const nextFirstRow = firstRow ? [...firstRow] : [];
+  const nextFirstRow: any = firstRow ? [...firstRow] : [];
   if (nextFirstRow.length - 1 < point.column) {
-    nextFirstRow[point.column] = undefined;
+    nextFirstRow[point.column] = '';
     nextMatrix[0] = nextFirstRow;
   }
 
   const nextRow = matrix[point.row] ? [...matrix[point.row]] : [];
-  nextRow[point.column] = value;
+  nextRow[point.column] = { ...value, value: newValue || '' };
   nextMatrix[point.row] = nextRow;
 
   return nextMatrix;
@@ -97,10 +97,11 @@ export function unset<T>(point: Point.Point, matrix: Matrix<T>): Matrix<T> {
     return matrix;
   }
   const nextMatrix = [...matrix];
-  const nextRow = [...matrix[point.row]];
+  const nextRow: any = [...matrix[point.row]];
+  const preservedColumnProps = { ...matrix[point.row][point.column], value: '' }
 
   // Avoid deleting to preserve first row length
-  nextRow[point.column] = undefined;
+  nextRow[point.column] = preservedColumnProps;
   nextMatrix[point.row] = nextRow;
 
   return nextMatrix;
